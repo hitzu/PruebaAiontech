@@ -5,7 +5,10 @@ const jwt = require("jsonwebtoken");
 const logIn =  (req,res)=>{
   try {
     
-    var {user,password} = req.body
+    // var {user,password} = req.body
+
+    const user = req.body.user
+    const password = req.body.password
 
     let account = Data.Accounts.filter(el=>{return (el.password == password && user == el.owner) || (el.password == password && user == el.account)}) 
     
