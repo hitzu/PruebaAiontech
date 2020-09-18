@@ -25,4 +25,26 @@ const resta = (req, res) => {
     }    
 }
 
-module.exports = {suma, resta}
+const multiplicacion = (req, res) => {
+    try {
+        let primerValor = req.query.primerValor
+        let segundoValor = req.query.segundoValor
+        let multiplicacion = primerValor * segundoValor;
+        res.status(200).send({resultado : multiplicacion})
+    }catch (error){
+        console.log(error)
+    }
+}
+
+const division = (req, res) => {
+    try {
+        let primerValor = req.query.primerValor
+        let segundoValor = req.query.segundoValor
+        let division = primerValor / segundoValor;
+        res.status(200).send({resultado : division})
+    }catch (error){
+        console.log(error)
+    }
+}
+
+module.exports = {suma, resta, multiplicacion, division}
