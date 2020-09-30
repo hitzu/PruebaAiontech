@@ -5,15 +5,19 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon ./server/index.js"
+    "start": "NODE_ENV=dev nodemon ./server/index.js",
+    "startQA": "NODE_ENV=qa nodemon ./server/index.js",
+    "startProd": "NODE_ENV=prod nodemon ./server/index.js"
   },
   "author": "Roberto Torres",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.2",
+    "custom-env": "^2.0.1",
     "express": "^4.16.2",
     "ip": "^1.1.5",
     "jsonwebtoken": "^8.1.0",
+    "mongoose": "^5.10.7",
     "passport": "^0.4.0",
     "passport-custom": "^1.0.5",
     "passport-jwt": "^3.0.1"

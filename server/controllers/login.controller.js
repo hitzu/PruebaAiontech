@@ -2,23 +2,19 @@
 const Data = require("../Data/accounts");
 const jwt = require("jsonwebtoken");
 
-const logIn =  (req,res)=>{
+//models
+const userModel = require('../models/user');
+
+const logIn = async (req,res)=>{
   try {
     
-    // var {user,password} = req.body
-
-    const user = req.body.user
-    const password = req.body.password
-
-    let account = Data.Accounts.filter(el=>{return (el.password == password && user == el.owner) || (el.password == password && user == el.account)}) 
+    const {email,password} = req.body
     
-    if (!account.length) {
-      throw {name:"invalidLogin"}
-    }
-    let payload = {id:account[0].owner}
+    const userFound = await userModel.findOne({email: email, password: password});
+    console.log(userFound);
+    const payload = {_id : userFound._id};
     let token = jwt.sign(payload,"secretString")
-    const accountFound = delete account[0].password
-    res.status(200).send({account:accountFound,token})
+    res.status(200).send({account:userFound,token})
   } catch (error) {
     if (error.name === "invalidLogin") {
       res.status(403).send({error:"invalidLogin"})
@@ -26,8 +22,28 @@ const logIn =  (req,res)=>{
       res.status(500).send({error:error.message})
     }
   }
-  
+}
+
+const register = (req,res) => {
+
+  const {email, password, firstName, lastName} = req.body
+
+
+  let newUser = new userModel();
+  newUser.email = email;
+  newUser.password = password;
+  newUser.firstName = firstName;
+  newUser.lastName = lastName;
+
+  newUser.save( (error, newUserSave) => {
+      if (error) {
+        res.status(500).send({error:error.message})
+      }else {
+        res.status(200).send({message:`se guardo el usuario con _id ${newUserSave._id}`})
+      }
+    }
+  )
   
 }
 
-module.exports = {logIn}
+module.exports = {logIn, register}
