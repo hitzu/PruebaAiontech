@@ -1,5 +1,4 @@
 'use strict'
-const Data = require("../Data/accounts");
 const jwt = require("jsonwebtoken");
 
 //models
@@ -11,7 +10,6 @@ const logIn = async (req,res)=>{
     const {email,password} = req.body
     
     const userFound = await userModel.findOne({email: email, password: password});
-    console.log(userFound);
     const payload = {_id : userFound._id};
     let token = jwt.sign(payload,"secretString")
     res.status(200).send({account:userFound,token})
