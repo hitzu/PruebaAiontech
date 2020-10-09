@@ -37,15 +37,12 @@ const UserSchema = Schema({
         default : 0,
     },
     operations : [{
-        operation: {
-            type: Schema.ObjectId,
-            ref: 'operations'
-        },
-        createdAt: {
-            type: Date,
-            trim: true,
-            default: Date.now
-        }
+        type: Schema.ObjectId,
+        ref: 'operations'
+    }],
+    transactions : [{
+        type: Schema.ObjectId,
+        ref: 'transactions'
     }]
 },
 { usePushEach: true })

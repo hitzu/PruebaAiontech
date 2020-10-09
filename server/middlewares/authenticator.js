@@ -4,9 +4,10 @@ var passport = require("passport");
 var passportJWT = require("passport-jwt");
 
 var ExtractJwt = passportJWT.ExtractJwt;
-var jwtOptions = {}
-jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeaderWithScheme('jwt');
-jwtOptions.secretOrKey = "secretString";
+var jwtOptions = {
+    jwtFromRequest : ExtractJwt.fromAuthHeaderWithScheme('jwt'),
+    secretOrKey : "secretString"
+}
 //models
 const userModel = require('../models/user');
 
@@ -17,7 +18,6 @@ const accountAuthentication = new JwtStrategy(jwtOptions, async (jwt_payload, ne
     console.log('new authenticated request with payload:', jwt_payload);
     try {
         const account = await userModel.findOne({_id : jwt_payload._id})
-        // let account = Data.Accounts.filter(el=>{ return el.owner === jwt_payload.id })
         if (account) {
             next(null, account);
         } else {

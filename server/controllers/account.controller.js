@@ -1,9 +1,9 @@
 'use strict'
 const Data = require("../Data/accounts");
-const user = require("../models/user");
 
 //models
 const userModel = require('../models/user');
+const transactionModel = require('../models/transactions');
 
 const getTransactionsReceived = (req,res)=>{
 	let transactions = Data.TransactionHistory.filter(e => {
@@ -26,22 +26,20 @@ const getAllTransactions = (req,res)=>{
 	res.status(200).send({transactions})
 }
 
-const getMyaccountBalance = async (req,res)=>{
-
-	const balanceFound = await userModel.findOne({_id : req.user._id})
-	// console.log(req.user);
-	// let balance = Data.Accounts.filter(e => {
-	// 	return e.account == req.user.account
-	// })
-	// const balanceFound = {...balance[0]}
-	// delete balanceFound.password
-	res.status(200).send({balanceFound})
-}
-
 const insertMoneyInAccount = async (req,res)=> {
-	const accountUpdate = await userModel.findByIdAndUpdate(req.user._id, {$inc : {balance : req.body.balance} }, {new : true});
-
-	res.status(200).send({accountUpdate})
+	try{
+		let {quantity} = req.body;
+		let transactionToSave = new transactionModel();
+		transactionToSave.type = 'add';
+		transactionToSave.quantity = quantity;
+		await transactionToSave.save();
+		const accountUpdate = await userModel.findByIdAndUpdate(req.user._id, {$inc : {balance : quantity}, $push: { transactions: transactionToSave  } }, {new : true});
+		res.status(200).send({accountUpdate})
+	}
+	catch(e){
+		console.log(e)
+		res.status(500).send(e)
+	}
 }
 
 const transferMoney = (req,res)=>{
@@ -91,6 +89,5 @@ module.exports = {
 	getTransactionsReceived,
 	getTransactionsSent,
 	getAllTransactions,
-	getMyaccountBalance,
 	insertMoneyInAccount,
 }

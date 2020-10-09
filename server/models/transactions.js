@@ -3,13 +3,12 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const OperationSchema = Schema({
-    operationType : {
-        type : String,
+const TransactionsSchema = Schema({
+    type : {
+        type : String,        
     },
-    cost : {
+    quantity : {
         type : Number,
-        default : 1,
     },
     createdAt: {
         type: Date,
@@ -19,4 +18,4 @@ const OperationSchema = Schema({
 },
 { usePushEach: true })
 
-module.exports = mongoose.model('operations', OperationSchema)
+module.exports = mongoose.model('transactions', TransactionsSchema)

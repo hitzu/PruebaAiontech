@@ -8,6 +8,5 @@ api.put('/transactions/insert',Authenticator.authenticate("jwt",{session:false})
 api.get('/transactions/received',Authenticator.authenticate("jwt",{session:false}), AccountController.getTransactionsReceived);
 api.get('/transactions/sent',Authenticator.authenticate("jwt",{session:false}), AccountController.getTransactionsSent);
 api.get('/transactions',Authenticator.authenticate("jwt",{session:false}), AccountController.getAllTransactions);
-api.get('/balance',Authenticator.authenticate("jwt",{session:false}), AccountController.getMyaccountBalance);
 
 module.exports = api;

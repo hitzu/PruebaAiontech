@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const routeLogin=require ("./routes/login.route");
 const routeAccount=require ("./routes/account.route");
+const routeUser=require ("./routes/user.route");
 const routeOperaciones=require("./routes/operaciones.route")
 const routeOperacionesAv = require("./routes/operacionesAv.route")
 const routeLoginAv = require("./routes/loginAv.route")
@@ -23,5 +24,6 @@ app.use("/account",routeAccount);
 app.use("/operaciones",routeOperaciones)
 app.use("/operaciones-av",routeOperacionesAv)
 app.use("/login-av",routeLoginAv);
+app.use("/user",routeUser);
 
 module.exports= app;
