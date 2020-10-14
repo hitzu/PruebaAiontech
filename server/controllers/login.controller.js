@@ -24,7 +24,7 @@ const logIn = async (req,res)=>{
 
 const register = (req,res) => {
 
-  const {email, password, firstName, lastName} = req.body
+  const {email, password, firstName, lastName, role} = req.body
 
 
   let newUser = new userModel();
@@ -32,6 +32,7 @@ const register = (req,res) => {
   newUser.password = password;
   newUser.firstName = firstName;
   newUser.lastName = lastName;
+  newUser.role = role;
 
   newUser.save( (error, newUserSave) => {
       if (error) {
