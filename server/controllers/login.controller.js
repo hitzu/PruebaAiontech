@@ -9,7 +9,8 @@ const logIn = async (req,res)=>{
     
     const {email,password} = req.body
     
-    const userFound = await userModel.findOne({email: email, password: password}, {password : 0});
+    let userFound = await userModel.findOne({email: email, password: password}, {password : 0})
+    .populate({path : 'transactions', populate : {path: 'operation' } })
     const payload = {_id : userFound._id};
     let token = jwt.sign(payload,"secretString")
     res.status(200).send({account:userFound,token})

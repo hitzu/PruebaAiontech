@@ -40,10 +40,6 @@ const UserSchema = Schema({
         type: Number,
         default : 0,
     },
-    operations : [{
-        type: Schema.ObjectId,
-        ref: 'operations'
-    }],
     transactions : [{
         type: Schema.ObjectId,
         ref: 'transactions'

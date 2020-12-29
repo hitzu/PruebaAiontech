@@ -14,7 +14,11 @@ const TransactionsSchema = Schema({
         type: Date,
         trim: true,
         default: Date.now
-    }
+    },
+    operation : {
+        type: Schema.ObjectId,
+        ref: 'operations'
+    },
 },
 { usePushEach: true })
 

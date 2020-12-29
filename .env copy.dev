@@ -1,0 +1,1 @@
+DB_HOST = mongodb+srv://dev_user:NzuR5EGLBByKvfCj@cluster0.2vlym.mongodb.net/dev?retryWrites=true&w=majority

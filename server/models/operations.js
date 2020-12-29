@@ -11,6 +11,7 @@ const OperationSchema = Schema({
         type : Number,
         default : 1,
     },
+    valores : [],
     createdAt: {
         type: Date,
         trim: true,
